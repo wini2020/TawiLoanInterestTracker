@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment History</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="track">
+  
+  <h1>Payment History</h1>
+  <!-- <a href="home.html" class="button"> LogOut</a> -->
+  <p id="borrowerName"></p>
+
+<div id="tableHolder">
+    <table>
+    <thead>
+      <tr>
+        <th>Payment Date</th>
+        <th>Amount Paid</th>
+        <th>Reminder</th>
+      </tr>
+    </thead>
+    <tbody id="paymentTable"></tbody>
+  </table>
+</div>
+  
+  <div id="graph">
+    <!-- Graph -->
+  <h2>Interest Growth Over Time</h2>
+  <canvas id="interestChart"></canvas>
+  </div>
+  
+  <p><a href="loan.html"> Back to Loans</a></p>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Load loans
+    let loans = JSON.parse(localStorage.getItem("loans")) || [];
+
+    // Get phone from URL
+    const params = new URLSearchParams(window.location.search);
+    const phone = params.get("phone");
+
+    const loan = loans.find(l => l.phone === phone);
+
+    if (!loan) {
+      document.getElementById("borrowerName").textContent = "No loan found.";
+    } else {
+      document.getElementById("borrowerName").textContent =
+        `Borrower: ${loan.name} (${loan.phone})`;
+
+      const tbody = document.getElementById("paymentTable");
+
+      if (!loan.payments || loan.payments.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='2'>No payments recorded.</td></tr>";
+      } else {
+        loan.payments.forEach(p => {
+          const dateStr = new Date(p.date).toLocaleDateString();
+          const row = tbody.insertRow();
+          row.innerHTML = `<td>${dateStr}</td>
+                           <td>${Number(p.amount).toFixed(2)}</td>
+                           <td><button class="reminderBtn">Send Reminder</button></td>
+                           `;
+
+           const btn = row.querySelector(".reminderBtn");
+          btn.addEventListener("click", () => {
+            // phone number to start with 254 instead of 07 for easy whatsapping
+            const formattedPhone = loan.phone.replace(/^0/, "254");
+            const message = encodeURIComponent(
+              `Hi ${loan.name}, this is a reminder of your pending loan as at now,kindly pay.`
+            );
+            open(`https://wa.me/${formattedPhone}?text=${message}`, "_blank");
+          });                
+        });
+      }
+
+
+      const startDate = new Date(loan.dateBorrowed);
+      const today = new Date();
+      let balance = Number(loan.principal) || 0;
+      let accumulatedInterest = 0;
+
+      // Sorting payments
+      const payments = (loan.payments || []).slice().sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      let labels = [];
+      let interestData = [];
+      let currentDate = new Date(startDate);
+
+      while (currentDate <= today) {
+        // Applying 5% monthly interest
+        let interest = balance * 0.05;
+        balance += interest;
+        accumulatedInterest += interest;
+
+        // Apply any payments made current  month
+        payments.forEach(p => {
+          const payDate = new Date(p.date);
+          if (payDate.getFullYear() === currentDate.getFullYear() &&
+              payDate.getMonth() === currentDate.getMonth()) {
+            balance -= Number(p.amount) || 0;
+            if (balance < 0) balance = 0;
+          }
+        });
+
+        
+        labels.push(currentDate.toLocaleDateString(undefined, { month: 'short', year: 'numeric' }));
+        interestData.push(accumulatedInterest.toFixed(2));
+
+        // next month
+        currentDate.setMonth(currentDate.getMonth() + 1);
+      }
+
+      // the chart
+      new Chart(document.getElementById("interestChart"), {
+        type: "line",
+        data: {
+          labels: labels,
+          datasets: [{
+            label: "Accumulated Interest (KES)",
+            data: interestData,
+            borderColor: "black",
+            backgroundColor: "lightgrey",
+            fill: true,
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: true }
+          },
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>

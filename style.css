@@ -1,0 +1,259 @@
+body{
+  background-color:rgb(228, 240, 231);
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;  
+  align-items: center;      
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color:#010f09;
+  
+}
+.home{
+    margin: 0;
+    padding: 0;
+    background-image: url("images/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  position: relative;
+  height: 100vh;
+}
+/* home page */
+.button-container{
+  gap: 50px;
+  display: flex;
+  justify-content: center; 
+  margin-top: 120px;
+  
+}
+.button-container a{
+ color: #128a28;
+}
+.button {
+  padding: 15px 30px;
+  background-color: #0c0c0c;
+  color: white;
+  text-decoration: none;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  transition: background-color 0.3s ease;
+}
+.hero-content h1{
+    font-size: 3rem;
+    margin-top: 5px;
+    background-color: black;
+}
+.hero-content p{
+  font-size: 1.5rem;
+  background-color: black;
+}
+.hero-content{
+   display: flex;               
+  flex-direction: column;      
+  justify-content: center;     
+  align-items: center;         
+  height: 100vh;               
+  text-align: center;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: whitesmoke ;
+  gap: 20px;
+   
+}
+/* login page */
+
+section.login, section.signUp-container {
+  background: white;
+  padding: 20px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 350px;
+  text-align: center;
+}
+.login-content {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+ h1 {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.login-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-content label {
+  margin: 10px 0 5px;
+  font-size: 1.5rem;
+}
+
+.login-content input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1.5rem;
+}
+.signUp-container form button, .login-content button,
+#loanForm button, #paymentForm button,.reminderBtn{
+  background-color: #11a056;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.login-content button:hover, .signUp-container form button:hover,
+#loanForm button:hover,#paymentForm button:hover,.reminderBtn:hover {
+  background-color: #0d4e25;
+}
+.login-content p {
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.login-content p a {
+  color: #128a28;
+  text-decoration: none;
+}
+
+.login-content p a:hover {
+  text-decoration: underline;
+}
+.signup-content form{
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left;
+  display: flex;              
+  flex-direction: column;     
+  align-items: center;       
+}
+.signUp-container form label{
+  display: block;
+  margin: 10px 0 5px;
+  font-size: 1.5rem;
+}
+.signup-content form input, form textarea, form button{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1.5rem;
+}
+.title{
+  margin-bottom: 20px;   
+  color: #010f09;       
+  font-size: 32px;
+  text-align: center;
+  font-size: 2.5rem;
+  font-family: Arial, sans-serif;
+}
+/* .loantable{
+
+} */
+table, th, td { 
+  border: 1px solid black;
+   border-collapse: collapse; 
+   padding: 6px; 
+  }
+  .loanage form {
+    margin-bottom: 20px;
+  }
+  .logoutButton{
+  padding: 15px 30px;
+  margin-left: 150px;
+  background-color: #032711;
+  color: white;
+  text-decoration: none;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  }
+.formsForLoan h2{
+  text-align: center;
+  
+}
+.formsForLoan{
+  display: flex;
+  justify-content: space-between; 
+  align-items: flex-start;       
+  gap: 150px;                     
+  margin: 20px 0;
+}
+.record{
+  margin-top: 55px;
+}
+#loanForm input,#paymentForm input{
+   width: 180px;
+    height: 30px;
+    border-radius:5px ;
+    border-color:rgb(215, 230, 230) ;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+}
+/* table */
+th{
+  background-color:rgb(38, 91, 63) ;
+  font-weight: bold;
+  color: whitesmoke;
+  font-size: 1.3rem;
+}
+.delete{
+    width: 80px;
+    height: 40px;
+  background-color: rgb(205, 9, 9);
+  margin-top: 5px;
+  cursor: pointer;
+  border-radius: 10px;
+  border-color:rgb(205, 9, 9);
+  font-size: 1rem;
+}
+.delete:hover{
+    background-color: darkred;
+}
+.track{
+   padding-top: 20px;
+}
+.track  h2, p, table{
+ margin:10px;
+} 
+.track h1{
+ margin-top: 0;
+
+}
+#interestChart {
+  width: 800px;   
+  height: 500px; 
+  margin: 20px 0;
+
+}
+  a{
+    text-decoration: none;
+  }
+  .reminderBtn{
+   border-radius: 5px;
+  }
+  p i{
+    font-weight: normal;
+  }
+  #graph h2{
+    text-align: center;
+  }
+  #borrowerName{
+    font-size: 1.2rem ;
+  }
+  #errorMsg{
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+    display: none;
+  }
